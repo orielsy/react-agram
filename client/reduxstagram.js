@@ -16,12 +16,22 @@ import { Provider } from 'react-redux';
 import store, { history } from './store';
 
 import Raven from 'raven-js';
-import { sentry_url } from './data/config';
+import { sentry_url, logException } from './data/config';
 
-Raven.config(sentry_url).install();
+Raven.config(sentry_url, {
+  tags: {
+    git_commit:'asdfas',
+    userLevel: 'editor'
+  }
+}).install();
+  /*
+logException(new Error('download failed!'), {
+  email: 'orielsy@gmail.com'
+});
 
-console.log(window.doesnotexist.nope);
+Raven.showReportDialog();*/
 
+//console.log(window.user.newErro);
 const router = (
   <Provider store={store}> 
     <Router history={history}>
